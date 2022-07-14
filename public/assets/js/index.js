@@ -25,6 +25,7 @@ const hide = (elem) => {
 // activeNote is used to keep track of the note in the textarea
 let activeNote = {};
 
+//GET fetch request to server endpoint for all data that has content type application/json
 const getNotes = () =>
   fetch('/api/notes', {
     method: 'GET',
@@ -33,6 +34,7 @@ const getNotes = () =>
     },
   });
 
+//POST fetch request to server endpoint to add completed note to json data on back end 
 const saveNote = (note) =>
   fetch('/api/notes', {
     method: 'POST',
@@ -50,6 +52,11 @@ const deleteNote = (id) =>
     },
   });
 
+//hide save note btn bc if this function is called it means either a new note is being created by the user, or the user is viewing an old completed note
+//if the activenote id exists, aka the note is done and has been given a unique id due to being added to our back end data set
+//then we know the user is viewing a saved note, and we set the text input fields to readonly 
+//and set the activenote title and text values to equal the title and text from the stored note that was clicked
+//if it is indeed a new note, we make the fields editable and set the note objects properties to empty to receive new data from the user
 const renderActiveNote = () => {
   hide(saveNoteBtn);
 
@@ -66,6 +73,10 @@ const renderActiveNote = () => {
   }
 };
 
+//first we create a new note object with 2 key:value pairs
+//then we call save note with this new note object that writes the new note to the back end json data via a POST request 
+//finally we re-get and re-render notes to have new note appear in our list, and we call renderActiveNote() to clear the 
+//note input field 
 const handleNoteSave = () => {
   const newNote = {
     title: noteTitle.value,
@@ -102,12 +113,13 @@ const handleNoteView = (e) => {
   renderActiveNote();
 };
 
-// Sets the activeNote to and empty object and allows the user to enter a new note
+// Sets the activeNote to and empty object and allows the user to enter a new note w render active note
 const handleNewNoteView = (e) => {
   activeNote = {};
   renderActiveNote();
 };
 
+//if there is no note title or text, hide save button so empty note cannot be saved, else show save button
 const handleRenderSaveBtn = () => {
   if (!noteTitle.value.trim() || !noteText.value.trim()) {
     hide(saveNoteBtn);
