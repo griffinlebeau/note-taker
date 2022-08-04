@@ -8,7 +8,7 @@ app.use(express.static('public'));
 
 const apiRoutes = require('./routes/apiRoutes');
 const htmlRoutes = require('./routes/htmlRoutes');
-app.use('/api', apiRoutes);
+app.use(apiRoutes);
 app.use('/', htmlRoutes);
 
 
