@@ -131,6 +131,7 @@ const handleRenderSaveBtn = () => {
 // Render the list of note titles
 const renderNoteList = async (notes) => {
   let jsonNotes = await notes.json();
+  const notesArr = jsonNotes.notes
   if (window.location.pathname === '/notes') {
     noteList.forEach((el) => (el.innerHTML = ''));
   }
@@ -166,11 +167,11 @@ const renderNoteList = async (notes) => {
     return liEl;
   };
 
-  if (jsonNotes.length === 0) {
+  if (notesArr.length === 0) {
     noteListItems.push(createLi('No saved Notes', false));
   }
 
-  jsonNotes.forEach(function(note){
+  notesArr.forEach(function(note){
     const li = createLi(note.title);
     li.dataset.note = JSON.stringify(note);
 
@@ -183,7 +184,7 @@ const renderNoteList = async (notes) => {
 };
 
 // Gets notes from the db and renders them to the sidebar
-const getAndRenderNotes = () => getNotes().then(renderNoteList);
+const getAndRenderNotes = () => getNotes().then((notes) => renderNoteList(notes));
 
 if (window.location.pathname === '/notes') {
   saveNoteBtn.addEventListener('click', handleNoteSave);
@@ -193,3 +194,4 @@ if (window.location.pathname === '/notes') {
 }
 
 getAndRenderNotes();
+console.log(notes);
