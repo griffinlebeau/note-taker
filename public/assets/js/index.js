@@ -4,7 +4,7 @@ let saveNoteBtn;
 let newNoteBtn;
 let noteList;
 
-if (window.location.pathname === '/notes') {
+if (window.location.pathname === '/notes.html') {
   noteTitle = document.querySelector('.note-title');
   noteText = document.querySelector('.note-textarea');
   saveNoteBtn = document.querySelector('.save-note');
@@ -36,7 +36,7 @@ const getNotes = () =>
 
 //POST fetch request to server endpoint to add completed note to json data on back end 
 const saveNote = (note) =>
-  fetch('/api/notes', {
+  fetch('https://sheltered-falls-93495.herokuapp.com/api/notes', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -133,7 +133,7 @@ const renderNoteList = async (notes) => {
   let jsonNotes = await notes.json();
   const notesArr = jsonNotes.notes
   console.log(notesArr);
-  if (window.location.pathname === '/notes') {
+  if (window.location.pathname === '/notes.html') {
     noteList.forEach((el) => (el.innerHTML = ''));
   }
 
@@ -179,7 +179,7 @@ const renderNoteList = async (notes) => {
     noteListItems.push(li);
   });
 
-  if (window.location.pathname === '/notes') {
+  if (window.location.pathname === '/notes.html') {
     noteListItems.forEach((note) => noteList[0].append(note));
   }
 };
@@ -187,7 +187,7 @@ const renderNoteList = async (notes) => {
 // Gets notes from the db and renders them to the sidebar
 const getAndRenderNotes = () => getNotes().then((notes) => renderNoteList(notes));
 
-if (window.location.pathname === '/notes') {
+if (window.location.pathname === '/notes.html') {
   saveNoteBtn.addEventListener('click', handleNoteSave);
   newNoteBtn.addEventListener('click', handleNewNoteView);
   noteTitle.addEventListener('keyup', handleRenderSaveBtn);
