@@ -27,7 +27,7 @@ let activeNote = {};
 
 //GET fetch request to server endpoint for all data that has content type application/json
 const getNotes = () =>
-  fetch('/api/notes', {
+  fetch('https://sheltered-falls-93495.herokuapp.com/api/notes', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -170,7 +170,7 @@ const renderNoteList = async (notes) => {
     noteListItems.push(createLi('No saved Notes', false));
   }
 
-  jsonNotes.forEach((note) => {
+  jsonNotes.forEach(function(note){
     const li = createLi(note.title);
     li.dataset.note = JSON.stringify(note);
 
