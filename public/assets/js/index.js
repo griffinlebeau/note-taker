@@ -27,7 +27,7 @@ let activeNote = {};
 
 //GET fetch request to server endpoint for all data that has content type application/json
 const getNotes = () =>
-  fetch('https://sheltered-falls-93495.herokuapp.com/api/notes', {
+  fetch('/api/notes', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -36,7 +36,7 @@ const getNotes = () =>
 
 //POST fetch request to server endpoint to add completed note to json data on back end 
 const saveNote = (note) =>
-  fetch('https://sheltered-falls-93495.herokuapp.com/api/notes', {
+  fetch('/api/notes', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

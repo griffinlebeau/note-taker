@@ -15,7 +15,7 @@ router.get('/api/notes', (req, res) => {
 
 router.post('/api/notes', (req, res) => { 
     console.log(req.body); 
-    req.body.id = notes.length;
+    req.body.id = notes.length + 1;
     if (!validateNote(req.body)){
         res.status(400).send('The note is not properly formatted.')
     } else {
